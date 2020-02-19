@@ -1,0 +1,60 @@
+import React, { Component } from "react";
+import { FlatList, Text, View, Image} from "react-native";
+// import { Card } from "react-native-elements";
+
+const data = [
+  {
+    imageUrl: "http://via.placeholder.com/160x160",
+    title: "something"
+  },
+  {
+    imageUrl: "http://via.placeholder.com/160x160",
+    title: "something two"
+  },
+  {
+    imageUrl: "http://via.placeholder.com/160x160",
+    title: "something three"
+  },
+  {
+    imageUrl: "http://via.placeholder.com/160x160",
+    title: "something four"
+  },
+  {
+    imageUrl: "http://via.placeholder.com/160x160",
+    title: "something five"
+  },
+  {
+    imageUrl: "http://via.placeholder.com/160x160",
+    title: "someting six"
+  }
+];
+
+export default class App extends Component {
+  constructor() {
+    super();
+    this.state = {
+      data: data
+    };
+  }
+
+  render() {
+    return (
+      <FlatList
+        horizontal={true}
+        data={this.state.data}
+        renderItem={({ item: rowData }) => (
+            <View>             
+              <View>
+                  <Image style = {{ width: 280, height: 200 }} source={{ uri: rowData.imageUrl }} />
+              </View>
+              <Text style={{ marginBottom: 10 }}>
+                {rowData.title}
+              </Text>
+            </View>
+          )
+        }
+        keyExtractor={(item, index) => index}
+      />
+    );
+  }
+}

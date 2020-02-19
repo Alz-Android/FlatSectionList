@@ -1,0 +1,84 @@
+// flatList inside scrollList
+
+import { Component, default as React } from 'react';
+import { View, FlatList, ScrollView, Text, StyleSheet, SafeAreaView } from 'react-native';
+import Constants from 'expo-constants';
+//import FastImage from 'react-native-fast-image'
+
+
+export default class NestedFlat extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {enableScrollViewScroll: true};
+  }
+
+  render() {
+    return (
+
+      <View
+        onStartShouldSetResponderCapture={() => {
+            this.setState({ enableScrollViewScroll: true });
+      }}>
+
+      <ScrollView
+         scrollEnabled={this.state.enableScrollViewScroll}>
+          {this.renderFlatList('red')}
+          {this.renderFlatList('green')}
+          {this.renderFlatList('purple')}
+          {this.renderFlatList('pink')}
+          {this.renderFlatList('red')}
+          {this.renderFlatList('green')}
+          {this.renderFlatList('purple')}
+          {this.renderFlatList('pink')}
+      </ScrollView>
+      </View>
+    );
+  }
+
+  renderFlatList(color) {
+    return (
+      <SafeAreaView
+        style={styles.item} 
+      >
+        <FlatList
+            horizontal={true}
+            data={this.getRandomData()}
+            backgroundColor={color}
+            Height={200}
+            marginBottom={50}
+            keyExtractor={(item, index) => index.toString()}
+            renderItem={({ item }) => <Text style={styles.title}>{item.title}</Text>}
+        />
+      </SafeAreaView>
+    );
+  }
+
+
+  getImages = () => {
+    imageUrl: "https://picsum.photos/150"
+  }
+
+  getRandomData = () => {
+    return new Array(100).fill('').map((item, index) => {
+      return { title: 'TitPle ' + (index + 1) };
+    });
+  };
+}
+
+const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      marginTop: Constants.statusBarHeight,
+    },
+    item: {
+      flex: 1,
+      backgroundColor: '#5fc2ff',
+      padding: 5,
+      marginVertical: 8,
+      marginHorizontal: 5,
+    },
+    title: {
+      fontSize: 32,
+    },
+  });
+ 

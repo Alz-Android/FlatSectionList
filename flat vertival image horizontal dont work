@@ -1,0 +1,56 @@
+import React, { Component } from 'react';
+import {
+  StyleSheet,
+  View,
+  FlatList,
+  Image,
+} from 'react-native';
+
+ 
+export default class App extends Component {
+  constructor() {
+    super();
+    this.state = {
+      dataSource: {},
+    };
+  }
+  componentDidMount() {
+    var that = this;
+    let items = Array.apply(null, Array(14)).map((v, i) => {
+      return { id: i, src: 'https://picsum.photos/50' + (i + 1) };
+    });
+    that.setState({
+      dataSource: items,
+    });
+  }
+  render() {
+    return (
+      <View style={styles.MainContainer}>
+        <FlatList
+          horizontal={true}
+          data={this.state.dataSource}
+          renderItem={({ item }) => (
+            <View style={{margin: 10 }}>
+              <Image style={styles.imageThumbnail} source={{ uri: item.src }} />
+            </View>
+          )}  
+          keyExtractor={(item, index) => index.toString()}
+        />
+      </View>
+    );
+  }
+}
+ 
+const styles = StyleSheet.create({
+  MainContainer: {
+    justifyContent: 'center',
+    flex: 0,
+    paddingTop: 30,
+  },
+  imageThumbnail: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: 100,
+    width: 150,
+  },
+});
